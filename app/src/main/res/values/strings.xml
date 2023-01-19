@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WhatsApp UI</string>
+    <string name="whatsapp">WhatsApp</string>
+
+    <string-array name="tabs">
+        <item>Chats</item>
+        <item>Status</item>
+        <item>Calls</item>
+    </string-array>
 </resources>
