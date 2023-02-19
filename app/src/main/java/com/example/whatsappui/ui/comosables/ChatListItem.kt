@@ -1,8 +1,7 @@
 package com.example.whatsappui.ui.comosables
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -23,20 +22,27 @@ import coil.request.ImageRequest
 import com.example.whatsappui.R
 import com.example.whatsappui.ui.models.Chat
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ChatListItem(
     chat:Chat,
-    onItemClicked : () -> Unit
+    onItemClicked : () -> Unit,
+    onItemLongPress : (_id:String) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .combinedClickable(
+                onClick = {
+                    onItemClicked()
+                },
+                onLongClick = {
+                    onItemLongPress(chat._id)
+                }
+            )
             .padding(
                 10.dp
-            )
-            .clickable {
-                onItemClicked()
-            },
+            ),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -100,39 +106,44 @@ fun ChatListItem(
                     vertical = 5.dp,
                     horizontal = 10.dp
                 ),
-            horizontalAlignment = Alignment.End
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = chat.time.toString(),
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
                 style = TextStyle(
-                    color = Color(0xFF353535),
+                    color = if(chat.unreadMessagesCount > 0)
+                                MaterialTheme.colors.primaryVariant
+                            else
+                                Color(0xFF353535),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             )
 
-            Spacer(modifier = Modifier.height(5.dp))
-
-            Box(
-                modifier = Modifier
-                    .size(25.dp)
-                    .background(
-                        color = MaterialTheme.colors.primaryVariant,
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ){
-                Text(
-                    text = chat.unreadMessagesCount.toString(),
-                    overflow = TextOverflow.Ellipsis,
-                    style = TextStyle(
-                        color = Color(0xFFFFFFFF),
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.SemiBold
+            if(chat.unreadMessagesCount > 0){
+                Spacer(modifier = Modifier.height(5.dp))
+                Box(
+                    modifier = Modifier
+                        .size(22.dp)
+                        .background(
+                            color = MaterialTheme.colors.primaryVariant,
+                            shape = CircleShape
+                        ),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(
+                        text = chat.unreadMessagesCount.toString(),
+                        overflow = TextOverflow.Ellipsis,
+                        style = TextStyle(
+                            color = Color(0xFFFFFFFF),
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
                     )
-                )
+                }
             }
         }
     }

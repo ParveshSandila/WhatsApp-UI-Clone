@@ -1,5 +1,6 @@
 package com.example.whatsappui.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,9 +18,15 @@ fun ChatsScreen(
             .fillMaxSize()
     ){
         items(DataHelper.provideChats()){ chat ->
-            ChatListItem(chat = chat){
-
-            }
+            ChatListItem(
+                chat = chat,
+                onItemClicked = {
+                    Log.d("BtnClick","Click")
+                },
+                onItemLongPress = {
+                    Log.d("BtnClick","LongPress $it")
+                }
+            )
         }
     }
 }

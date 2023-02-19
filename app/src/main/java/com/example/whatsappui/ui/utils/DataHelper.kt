@@ -9,14 +9,15 @@ object DataHelper {
 
     fun provideChats() : List<Chat> {
         val list = ArrayList<Chat>()
-        repeat(20){
+        repeat(20){ number ->
             list.add(
                 Chat(
+                    _id = "id_$number",
                     userAvtar = faker.avatar.image(),
                     userName = faker.name.name(),
                     lastMessage = faker.lorem.sentence(),
                     time = faker.time.backward(10),
-                    unreadMessagesCount = faker.number.between(0,100)
+                    unreadMessagesCount = faker.number.between(0,3)
                 )
             )
         }
