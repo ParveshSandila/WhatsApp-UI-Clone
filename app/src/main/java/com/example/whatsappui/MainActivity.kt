@@ -1,6 +1,8 @@
 package com.example.whatsappui
 
+import android.R
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -15,7 +17,6 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.whatsappui.ui.screens.CallsScreen
@@ -24,6 +25,7 @@ import com.example.whatsappui.ui.screens.StatusScreen
 import com.example.whatsappui.ui.theme.WhatsAppUITheme
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
+
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPagerApi::class)
